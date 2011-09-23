@@ -15,3 +15,7 @@ do $ ->
     render: =>
        $(@el).html @template(@model.toJSON())
        @
+
+  class window.Animals extends Backbone.Collection
+    model: Animal
+    url: '/animals'

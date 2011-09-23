@@ -18,7 +18,7 @@
       }
       return Animal;
     })();
-    return window.AnimalView = (function() {
+    window.AnimalView = (function() {
       __extends(AnimalView, Backbone.View);
       function AnimalView() {
         this.render = __bind(this.render, this);
@@ -36,6 +36,15 @@
         return this;
       };
       return AnimalView;
+    })();
+    return window.Animals = (function() {
+      __extends(Animals, Backbone.Collection);
+      function Animals() {
+        Animals.__super__.constructor.apply(this, arguments);
+      }
+      Animals.prototype.model = Animal;
+      Animals.prototype.url = '/animals';
+      return Animals;
     })();
   })();
 }).call(this);
