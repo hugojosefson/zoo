@@ -1,12 +1,12 @@
 (function() {
-  var __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
     for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
     function ctor() { this.constructor = child; }
     ctor.prototype = parent.prototype;
     child.prototype = new ctor;
     child.__super__ = parent.prototype;
     return child;
-  }, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  };
   $(function() {
     window.sanity = function() {
       return 'sane';
@@ -14,14 +14,21 @@
     window.Animal = (function() {
       __extends(Animal, Backbone.Model);
       function Animal() {
+        this.incrementAge = __bind(this.incrementAge, this);
         Animal.__super__.constructor.apply(this, arguments);
       }
+      Animal.prototype.incrementAge = function() {
+        return this.set({
+          age: this.get('age') + 1
+        });
+      };
       return Animal;
     })();
     window.AnimalView = (function() {
       __extends(AnimalView, Backbone.View);
       function AnimalView() {
         this.render = __bind(this.render, this);
+        this.incrementAge = __bind(this.incrementAge, this);
         this.initialize = __bind(this.initialize, this);
         AnimalView.__super__.constructor.apply(this, arguments);
       }
@@ -30,6 +37,12 @@
       AnimalView.prototype.className = "animal";
       AnimalView.prototype.initialize = function() {
         return this.model.bind("change", this.render);
+      };
+      AnimalView.prototype.events = {
+        "click h3": "incrementAge"
+      };
+      AnimalView.prototype.incrementAge = function() {
+        return this.model.incrementAge();
       };
       AnimalView.prototype.render = function() {
         $(this.el).html(this.template(this.model.toJSON()));
