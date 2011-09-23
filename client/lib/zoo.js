@@ -62,19 +62,16 @@
         return this.collection.bind("remove", this.render);
       };
       AnimalsView.prototype.render = function() {
-        var $animals;
-        $animals = this.$(this.el);
-        $animals.empty();
+        this.$(this.el).empty();
         this.collection.each(this.renderOne);
         return this;
       };
       AnimalsView.prototype.renderOne = function(animal) {
-        var $animals, view;
+        var view;
         view = new AnimalView({
           model: animal
         });
-        $animals = this.$(this.el);
-        return $animals.append(view.render().el);
+        return this.$(this.el).append(view.render().el);
       };
       return AnimalsView;
     })();

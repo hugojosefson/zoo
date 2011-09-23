@@ -30,12 +30,10 @@ do $ ->
       @collection.bind("remove", @render)
 
     render: =>
-      $animals = @$(@el)
-      $animals.empty()
+      @$(@el).empty()
       @collection.each(@renderOne)
       @
 
     renderOne: (animal) =>
        view = new AnimalView({model: animal})
-       $animals = @$(@el)
-       $animals.append(view.render().el)
+       @$(@el).append(view.render().el)
