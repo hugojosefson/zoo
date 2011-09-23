@@ -59,7 +59,7 @@
       Animals.prototype.url = '/animals';
       return Animals;
     })();
-    return window.AnimalsView = (function() {
+    window.AnimalsView = (function() {
       __extends(AnimalsView, Backbone.View);
       function AnimalsView() {
         this.renderOne = __bind(this.renderOne, this);
@@ -87,6 +87,19 @@
         return this.$(this.el).append(view.render().el);
       };
       return AnimalsView;
+    })();
+    return window.ZooRouter = (function() {
+      __extends(ZooRouter, Backbone.Router);
+      function ZooRouter() {
+        ZooRouter.__super__.constructor.apply(this, arguments);
+      }
+      ZooRouter.prototype.zoo = function() {};
+      ZooRouter.prototype.cage = function(cageNum) {};
+      ZooRouter.prototype.routes = {
+        "": "zoo",
+        "cage/:cageNum": "cage"
+      };
+      return ZooRouter;
     })();
   })();
 }).call(this);

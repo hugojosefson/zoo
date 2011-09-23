@@ -45,3 +45,10 @@ do $ ->
     renderOne: (animal) =>
        view = new AnimalView({model: animal})
        @$(@el).append(view.render().el)
+
+  class window.ZooRouter extends Backbone.Router
+    zoo: ->
+    cage: (cageNum) ->
+    routes:
+      "": "zoo"
+      "cage/:cageNum": "cage"
