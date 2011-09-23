@@ -27,3 +27,6 @@ animals = [
   { kind: 'Sloth',  name: 'Robert Pirsig', image: '' }
 ]
 
+
+server.get '/animals', (req, res) ->
+  res.send animals

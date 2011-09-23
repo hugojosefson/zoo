@@ -29,4 +29,7 @@
       image: ''
     }
   ];
+  server.get('/animals', function(req, res) {
+    return res.send(animals);
+  });
 }).call(this);
