@@ -37,7 +37,7 @@
       };
       return AnimalView;
     })();
-    return window.Animals = (function() {
+    window.Animals = (function() {
       __extends(Animals, Backbone.Collection);
       function Animals() {
         Animals.__super__.constructor.apply(this, arguments);
@@ -45,6 +45,38 @@
       Animals.prototype.model = Animal;
       Animals.prototype.url = '/animals';
       return Animals;
+    })();
+    return window.AnimalsView = (function() {
+      __extends(AnimalsView, Backbone.View);
+      function AnimalsView() {
+        this.renderOne = __bind(this.renderOne, this);
+        this.render = __bind(this.render, this);
+        this.initialize = __bind(this.initialize, this);
+        AnimalsView.__super__.constructor.apply(this, arguments);
+      }
+      AnimalsView.prototype.tagName = "ul";
+      AnimalsView.prototype.className = "animals";
+      AnimalsView.prototype.initialize = function() {
+        this.collection.bind("reset", this.render);
+        this.collection.bind("add", this.renderOne);
+        return this.collection.bind("remove", this.render);
+      };
+      AnimalsView.prototype.render = function() {
+        var $animals;
+        $animals = this.$(this.el);
+        $animals.empty();
+        this.collection.each(this.renderOne);
+        return this;
+      };
+      AnimalsView.prototype.renderOne = function(animal) {
+        var $animals, view;
+        view = new AnimalView({
+          model: animal
+        });
+        $animals = this.$(this.el);
+        return $animals.append(view.render().el);
+      };
+      return AnimalsView;
     })();
   })();
 }).call(this);

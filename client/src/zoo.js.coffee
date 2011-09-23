@@ -19,3 +19,23 @@ do $ ->
   class window.Animals extends Backbone.Collection
     model: Animal
     url: '/animals'
+
+  class window.AnimalsView extends Backbone.View
+    tagName: "ul"
+    className: "animals"
+
+    initialize: =>
+      @collection.bind("reset", @render)
+      @collection.bind("add", @renderOne)
+      @collection.bind("remove", @render)
+
+    render: =>
+      $animals = @$(@el)
+      $animals.empty()
+      @collection.each(@renderOne)
+      @
+
+    renderOne: (animal) =>
+       view = new AnimalView({model: animal})
+       $animals = @$(@el)
+       $animals.append(view.render().el)
